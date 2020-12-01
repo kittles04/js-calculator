@@ -1,16 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
-const Output = props => {
-    return (
-        <div>
-            Output
-        </div>
-    )
-}
+const Output = ({ currentValue, initialize }) => {
+  return (
+    <div className={"outputScreen"} id="display">
+      {currentValue}
+    </div>
+  );
+};
 
-Output.propTypes = {
+Output.propTypes = {};
 
-}
-
-export default Output
+export default Output;
