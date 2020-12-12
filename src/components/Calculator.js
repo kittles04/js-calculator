@@ -19,6 +19,20 @@ const Calculator = (props) => {
         break;
       default:
         const newData = update(operations, { $push: [button] });
+
+        let str = operations.join("");
+        var numberGroups = str.split(/[+*\/-]/);
+        let operators = /[+*\/-]/;
+
+        let currentNumber = numberGroups.length - 1;
+
+        // if (currentNumber.match(operators) && button === "=") {
+        //   calculateOperations();
+        // }
+        if (numberGroups[currentNumber].includes(".") && button === ".") {
+          return;
+        }
+
         const firstDigit = newData[0];
 
         if (firstDigit === "0") {
