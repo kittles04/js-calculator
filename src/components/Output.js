@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Output = ({ currentValue, initialize }) => {
+const Output = ({ data }) => {
+  const string = data.join("");
   return (
     <div className={"outputScreen"} id="display">
-      {currentValue}
+      {string}
     </div>
   );
 };
