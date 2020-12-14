@@ -1,12 +1,17 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Buttons from "./Buttons";
 import Output from "./Output";
 import { useState } from "react";
 import * as math from "mathjs";
 import update from "immutability-helper";
 
-const Calculator = (props) => {
+const OPERATORS_ARRAY = ["+", "*", "/", "-"];
+
+const isOperator = (val) => {
+  return OPERATORS_ARRAY.includes(val);
+};
+
+const Calculator = () => {
   const [operations, setOperations] = useState(["0"]);
 
   const onClick = (button) => {
@@ -18,23 +23,35 @@ const Calculator = (props) => {
         calculateOperations();
         break;
       default:
+        const lastItem = operations[operations.length - 1];
+        const secondToLastItem = operations[operations.length - 2];
+
+        if (
+          isOperator(lastItem) &&
+          isOperator(secondToLastItem) &&
+          isOperator(button)
+        ) {
+          operations.pop();
+          operations.pop();
+        } else if (
+          button !== "-" &&
+          isOperator(button) &&
+          isOperator(lastItem)
+        ) {
+          operations.pop();
+        }
+
         const newData = update(operations, { $push: [button] });
 
         let str = operations.join("");
-        var numberGroups = str.split(/[+*\/-]/);
-        let operators = /[+*\/-]/;
 
+        let numberGroups = str.split(/[+*\/-]/);
         let currentNumber = numberGroups.length - 1;
-
-        // if (currentNumber.match(operators) && button === "=") {
-        //   calculateOperations();
-        // }
         if (numberGroups[currentNumber].includes(".") && button === ".") {
           return;
         }
 
         const firstDigit = newData[0];
-
         if (firstDigit === "0") {
           newData.shift();
         }
@@ -64,7 +81,5 @@ const Calculator = (props) => {
     </div>
   );
 };
-
-Calculator.propTypes = {};
 
 export default Calculator;

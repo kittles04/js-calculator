@@ -10,6 +10,8 @@ const Output = ({ data }) => {
   );
 };
 
-Output.propTypes = {};
+Output.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default Output;

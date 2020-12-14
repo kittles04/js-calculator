@@ -103,6 +103,8 @@ const Buttons = ({ onClick }) => {
   );
 };
 
-Buttons.propTypes = {};
+Buttons.propTypes = {
+  onClick: PropTypes.func.isRequired
+};
 
 export default Buttons;
